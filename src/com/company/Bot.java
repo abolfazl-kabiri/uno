@@ -4,19 +4,36 @@ import java.util.ArrayList;
 
 public class Bot extends Player{
 
-    int score;
-    int numberOfCards;
+
     public Bot(ArrayList<Card> playerCards, String name) {
         super(playerCards, name);
-        score = 0;
-        numberOfCards = 7;
     }
+
+    @Override
+    public Card playCard(GameManager gm) throws InterruptedException {
+        Card selectedCard = null;
+        ArrayList<Card> validCards = checkValidCards(gm);
+        if(validCards.size() == 0)
+        {
+            System.out.println("no playable card");
+            selectedCard = pickCard(gm, selectedCard);
+        }
+        else
+        {
+            selectedCard = selectCard(validCards, gm);
+        }
+        super.getPlayerCards().remove(selectedCard);
+        return selectedCard;
+    }
+
+
+
+
 
     @Override
     public Card selectCard(ArrayList<Card> validCards, GameManager gm) {
         Card selectedCard = null;
-        System.out.println("playable cards: ");
-        printCards(validCards);
+
         if(validCards.size() == 1)
             selectedCard = validCards.get(0);
         else
@@ -24,7 +41,8 @@ public class Bot extends Player{
             selectedCard = randomCard(validCards);
         }
         validCards.clear();
-        System.out.println("selected card: " + selectedCard.getCardCharacter() +" " + selectedCard.getColor());
+        System.out.print("selected card: ");
+        selectedCard.print();
         return selectedCard;
     }
 }

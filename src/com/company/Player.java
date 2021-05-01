@@ -130,7 +130,7 @@ public class Player {
         return selectedCard;
     }
 
-    private Card pickCard(GameManager gm, Card selectedCard) throws InterruptedException {
+    public Card pickCard(GameManager gm, Card selectedCard) throws InterruptedException {
         System.out.println("picking card...");
         Thread.sleep(1000);
         if(gm.getBoard().getBoardCard().getCardCharacter().equals("7"))
@@ -161,7 +161,7 @@ public class Player {
         return selectedCard;
     }
 
-    private ArrayList<Card> checkValidCards(GameManager gm)
+    public ArrayList<Card> checkValidCards(GameManager gm)
     {
         ArrayList<Card> valids = new ArrayList<>();
         for(Card card : playerCards)
