@@ -178,18 +178,17 @@ public class GameManager {
 
     }
 
-    public void putCard()
-    {
-        System.out.println(rotation);
+    public void putCard() throws InterruptedException {
         Card card = null;
         while (turn < 0)
             turn+=numberOfPlayers;
+        Thread.sleep(1000);
         Player player = players[turn % numberOfPlayers];
-        System.out.println("turn: " + turn);
         System.out.println("player: " + player.getName());
         card = player.playCard(this);
         if(card != null)
         {
+            Thread.sleep(1000);
             Card oldCard = board.setBoardCard(card);
             manageCards.addCards(oldCard);
             if(card instanceof ActionCard)

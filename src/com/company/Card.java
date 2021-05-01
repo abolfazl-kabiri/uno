@@ -49,7 +49,19 @@ public class Card {
 
     public void print()
     {
-        System.out.println(cardCharacter + " " + color);
+        System.out.println();
+        String str = getPrintColor() +"┍━━━━━┑\n";
+        str += "|" + cardCharacter;
+        if(cardCharacter.equals("10"))
+            str += "   |\n";
+        else
+            str += " \t  |\n";
+        str += "|\t  |\n";
+        str += "┕━━━━━┙\n" + ANSI_RESET;
+        System.out.println(str);
+
+
+
     }
 
     public boolean isPlayable(GameManager gm) {

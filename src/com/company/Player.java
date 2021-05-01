@@ -62,18 +62,40 @@ public class Player {
         return playerCards.size();
     }
 
+    public static final String ANSI_RESET = "\u001B[0m";
     public void printCards(ArrayList<Card> cards)
     {
+       String str = "";
+       for(int i=0; i<cards.size(); i++)
+           str += cards.get(i).getPrintColor() +"┍━━━";
+       str += "━━┑\n";
        for(int i=0; i<cards.size(); i++)
        {
-           System.out.print(i+1 + ". " + cards.get(i).getCardCharacter() +" " + cards.get(i).getColor() + "\t");
+           str += cards.get(i).getPrintColor() + "|";
+           if(cards.get(i).getCardCharacter().equals("10"))
+               str += cards.get(i).getCardCharacter() +" ";
+           else
+               str += " " +  cards.get(i).getCardCharacter() + " ";
        }
-        System.out.println();
+       str += "  |\n";
+       for(int i=0; i<cards.size(); i++)
+           str += cards.get(i).getPrintColor() + "|   ";
+       str += "  |\n";
+       for(int i=0; i<cards.size();i++)
+           str += cards.get(i).getPrintColor() + "┕━━━";
+       str += "━━┙\n" + ANSI_RESET;
+       for(int i=0; i<cards.size(); i++)
+       {
+           if(i >= 9)
+               str += "" + (i+1) + "  ";
+           else
+               str += " " + (i+1) + "\t ";
+       }
+
+       System.out.println(str);
     }
 
-    public Card playCard(GameManager gm)
-    {
-        System.out.println("number of cards: " + playerCards.size());
+    public Card playCard(GameManager gm) throws InterruptedException {
         System.out.println("cards: ");
         printCards(playerCards);
         Card selectedCard = null;
@@ -108,9 +130,9 @@ public class Player {
         return selectedCard;
     }
 
-    private Card pickCard(GameManager gm, Card selectedCard)
-    {
+    private Card pickCard(GameManager gm, Card selectedCard) throws InterruptedException {
         System.out.println("picking card...");
+        Thread.sleep(1000);
         if(gm.getBoard().getBoardCard().getCardCharacter().equals("7"))
         {
             for(int i=0; i<gm.getNumberOfCardsForNextPlayer(); i++)
@@ -118,7 +140,6 @@ public class Player {
                 Card card = gm.getManageCards().giveSingleCard();
                 playerCards.add(card);
             }
-            printCards(playerCards);
             gm.setNumberOfCardsForNextPlayer(0);
             ArrayList<Card> newPlayableCards = checkValidCards(gm);
             if(newPlayableCards.size()>0)
@@ -131,7 +152,6 @@ public class Player {
             playerCards.add(card);
             if(card.isPlayable(gm))
             {
-                printCards(playerCards);
                 ArrayList<Card> valids = new ArrayList<>();
                 valids.add(card);
                 selectedCard = selectCard(valids,gm);
