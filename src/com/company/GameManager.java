@@ -26,6 +26,8 @@ public class GameManager {
         createPlayers();
     }
 
+
+
     public ManageCards getManageCards() {
         return manageCards;
     }
@@ -191,7 +193,13 @@ public class GameManager {
             Card oldCard = board.setBoardCard(card);
             manageCards.addCards(oldCard);
             if(card instanceof ActionCard)
-                ((ActionCard) card).action(this);
+            {
+                if(!(player.hasCard()) && (card instanceof MoveAgainCard || card instanceof DonationCard || card instanceof WildCard))
+                    turn = updateTurn();
+                else
+                     ((ActionCard) card).action(this);
+            }
+
             else
               turn = updateTurn();
         }

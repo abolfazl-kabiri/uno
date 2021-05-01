@@ -52,15 +52,22 @@ public class Card {
         System.out.println(cardCharacter + " " + color);
     }
 
-    public boolean isPlayable(GameManager gm)
-    {
-        String color = gm.getBoard().getBoardColor();
-        String boardChar = gm.getBoard().getBoardCard().getCardCharacter();
-        if(this.getColor().equals(color) || this.getCardCharacter().equals(boardChar) || (this instanceof WildCard))
-        {
-            return true;
+    public boolean isPlayable(GameManager gm) {
+        boolean playable = false;
+        if (gm.getBoard().getBoardCard().getCardCharacter().equals("7") && gm.getNumberOfCardsForNextPlayer() != 0) {
+            if(this.getCardCharacter().equals("7"))
+                playable = true;
+            else
+                playable = false;
+
+        } else {
+            String color = gm.getBoard().getBoardColor();
+            String boardChar = gm.getBoard().getBoardCard().getCardCharacter();
+            if (this.getColor().equals(color) || this.getCardCharacter().equals(boardChar) || (this instanceof WildCard)) {
+                playable = true;
+            } else
+                playable = false;
         }
-        else
-            return false;
+        return playable;
     }
 }

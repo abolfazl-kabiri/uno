@@ -12,6 +12,7 @@ public class DrawCard extends ActionCard {
         int numberOfCards = gm.getNumberOfCardsForNextPlayer();
         numberOfCards += 2;
         gm.setNumberOfCardsForNextPlayer(numberOfCards);
+        System.out.println("number of cards for next player: " + numberOfCards);
         gm.setTurn(gm.updateTurn());
     }
 }

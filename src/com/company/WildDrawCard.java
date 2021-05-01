@@ -12,6 +12,7 @@ public class WildDrawCard extends ActionCard {
         int numberOfCards = gm.getNumberOfCardsForNextPlayer();
         numberOfCards += 4;
         gm.setNumberOfCardsForNextPlayer(numberOfCards);
+        System.out.println("number of cards for next player: " + numberOfCards);
         gm.setTurn(gm.updateTurn());
     }
 }

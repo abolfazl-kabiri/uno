@@ -111,15 +111,33 @@ public class Player {
     private Card pickCard(GameManager gm, Card selectedCard)
     {
         System.out.println("picking card...");
-        Card card = gm.getManageCards().giveSingleCard();
-        playerCards.add(card);
-        if(card.isPlayable(gm))
+        if(gm.getBoard().getBoardCard().getCardCharacter().equals("7"))
         {
-            ArrayList<Card> valids = new ArrayList<>();
-            valids.add(card);
-            selectedCard = selectCard(valids,gm);
+            for(int i=0; i<gm.getNumberOfCardsForNextPlayer(); i++)
+            {
+                Card card = gm.getManageCards().giveSingleCard();
+                playerCards.add(card);
+            }
+            printCards(playerCards);
+            gm.setNumberOfCardsForNextPlayer(0);
+            ArrayList<Card> newPlayableCards = checkValidCards(gm);
+            if(newPlayableCards.size()>0)
+                selectedCard = selectCard(newPlayableCards,gm);
+
         }
-        printCards(playerCards);
+        else
+        {
+            Card card = gm.getManageCards().giveSingleCard();
+            playerCards.add(card);
+            if(card.isPlayable(gm))
+            {
+                printCards(playerCards);
+                ArrayList<Card> valids = new ArrayList<>();
+                valids.add(card);
+                selectedCard = selectCard(valids,gm);
+            }
+        }
+
         return selectedCard;
     }
 
