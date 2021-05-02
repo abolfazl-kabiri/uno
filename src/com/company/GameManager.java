@@ -13,8 +13,9 @@ public class GameManager {
     private int turn;
     private String rotation;
     private int numberOfCardsForNextPlayer;
+    private int gameType;
 
-    public GameManager()
+    public GameManager(int gameType)
     {
         numberOfPlayers = setNumberOfPlayers();
         players = new Player[numberOfPlayers];
@@ -23,7 +24,7 @@ public class GameManager {
         turn = 0;
         rotation = "clockwise";
         numberOfCardsForNextPlayer = 0;
-        createPlayers();
+        createPlayers(gameType);
     }
 
 
@@ -49,18 +50,33 @@ public class GameManager {
         this.numberOfCardsForNextPlayer = numberOfCardsForNextPlayer;
     }
 
-    private void createPlayers()
+    private void createPlayers(int gameType)
     {
-        System.out.print("enter your name: ");
-        String name = scanner.next();
-        Player player = new Player(manageCards.setPlayerCards(), name);
-        players[0] = player;
-
-        for (int i=1; i<numberOfPlayers; i++)
+        if(gameType == 1)
         {
-            Player botPlayer = new Bot(manageCards.setPlayerCards(), "bot" + i);
-            players[i] = botPlayer;
+            System.out.print("enter your name: ");
+            String name = scanner.next();
+            Player player = new Player(manageCards.setPlayerCards(), name);
+            players[0] = player;
+
+            for (int i=1; i<numberOfPlayers; i++)
+            {
+                Player botPlayer = new Bot(manageCards.setPlayerCards(), "bot" + i);
+                players[i] = botPlayer;
+            }
         }
+
+        else
+        {
+            for(int i=0; i<numberOfPlayers; i++)
+            {
+                System.out.println("player " + (i+1) + " enter your name: ");
+                String name = scanner.next();
+                Player player = new Player(manageCards.setPlayerCards(), name);
+                players[i] = player;
+            }
+        }
+
     }
 
     public Board getBoard() {

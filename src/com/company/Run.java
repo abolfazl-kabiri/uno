@@ -1,11 +1,30 @@
 package com.company;
 
+import java.util.Scanner;
+
 public class Run {
 
-    GameManager gm;
+    private int gameType;
+    private GameManager gm;
 
     public Run() {
-        gm = new GameManager();
+        this.gameType = setGameType();
+        gm = new GameManager(gameType);
+    }
+
+
+    public int setGameType()
+    {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("1. play with bot\n" +
+                          "2. play with friends\n");
+        int input = scanner.nextInt();
+        while (input > 2 || input <1)
+            {
+                System.out.print("invalid input.\ntry again: ");
+                input = scanner.nextInt();
+            }
+        return input;
     }
 
     public void startGame() throws InterruptedException {
