@@ -4,29 +4,52 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
+/**
+ *
+ * ManageCards class
+ * manages cards in bank
+ */
 public class ManageCards {
 
     private ArrayList<Card> cards;
 
+    /**
+     * constructor of ManagerCards class
+     * creates an empty arraylist to be filled with initial cards
+     */
     public ManageCards() {
         cards = new ArrayList<>();
     }
 
+    /**
+     * shuffle cards
+     */
     public void shuffle()
     {
         Collections.shuffle(cards);
     }
 
+    /**
+     * add the old card of board to cards in bank
+     * @param card
+     */
     public void addCards(Card card)
     {
         cards.add(card);
     }
 
+    /**
+     * remove a card from bank
+     * @param card card to be removed
+     */
     public void removeCard(Card card)
     {
         cards.remove(card);
     }
 
+    /**
+     * create ordinary cards
+     */
     public void createOrdinaryCards()
     {
         String[] colors = {"black", "blue", "red", "green"};
@@ -55,6 +78,9 @@ public class ManageCards {
         }
     }
 
+    /**
+     * create action cards
+     */
     public void createActionCards()
     {
         String[] colors = {"black", "blue", "red", "green"};
@@ -88,6 +114,9 @@ public class ManageCards {
             addCards(wildDrawCard);
     }
 
+    /**
+     * set the initial board's card by random
+     */
     Random random = new Random();
     public Card setBoardCard()
     {
@@ -102,7 +131,10 @@ public class ManageCards {
         return card;
     }
 
-
+    /**
+     * gives a single card to a player
+     * @return a card
+     */
     public Card giveSingleCard()
     {
         Card card = cards.get(random.nextInt(cards.size()));
@@ -110,7 +142,10 @@ public class ManageCards {
         return card;
     }
 
-
+    /**
+     * set initial players' cards
+     * @return cards of each player
+     */
     public ArrayList<Card> setPlayerCards()
     {
         ArrayList<Card> playerCards = new ArrayList<>();
@@ -121,9 +156,5 @@ public class ManageCards {
             cards.remove(card);
         }
         return playerCards;
-    }
-
-    public ArrayList<Card> getCards() {
-        return cards;
     }
 }

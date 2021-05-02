@@ -1,13 +1,26 @@
 package com.company;
 import java.util.Random;
 
+/**
+ * WildCard class
+ * player can change color of board
+ */
 public class WildCard extends ActionCard {
 
+    /**
+     * creates a wild card
+     * @param cardCharacter character of card
+     * @param color color of card
+     * @param score score of card
+     */
     public WildCard(String cardCharacter, String color, int score) {
         super(cardCharacter, color, score);
     }
 
-
+    /**
+     * player can change color of board
+     * @param gm game manager
+     */
     @Override
     public void action(GameManager gm) {
         String[] colors = {"black", "blue", "red", "green"};

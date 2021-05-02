@@ -2,31 +2,24 @@ package com.company;
 
 import java.util.Scanner;
 
+/**
+ * Run class to run the game loop
+ */
 public class Run {
 
-    private int gameType;
     private GameManager gm;
 
+    /**
+     * the constructor of Run class
+     */
     public Run() {
-        this.gameType = setGameType();
-        gm = new GameManager(gameType);
+        gm = new GameManager();
     }
 
-
-    public int setGameType()
-    {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("1. play with bot\n" +
-                          "2. play with friends\n");
-        int input = scanner.nextInt();
-        while (input > 2 || input <1)
-            {
-                System.out.print("invalid input.\ntry again: ");
-                input = scanner.nextInt();
-            }
-        return input;
-    }
-
+    /**
+     * starting game
+     * @throws InterruptedException
+     */
     public void startGame() throws InterruptedException {
         System.out.println();
         System.out.println();

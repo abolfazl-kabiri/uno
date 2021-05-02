@@ -3,46 +3,85 @@ package com.company;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * Player class
+ * identifies player identity
+ */
 public class Player {
 
     private String name;
     private int score;
     private ArrayList<Card> playerCards;
 
+    /**
+     * constructor of Player class
+     * creates a player with 7 cards
+     * @param playerCards initial cards
+     * @param name name of player
+     */
     public Player(ArrayList<Card> playerCards, String name) {
         this.playerCards = playerCards;
         this.name = name;
         score = 0;
     }
 
+    /**
+     * get cards of player
+     * @return playerCards field
+     */
     public ArrayList<Card> getPlayerCards() {
         return playerCards;
     }
 
+    /**
+     * get score of player
+     * @return score field
+     */
     public int getScore() {
         return score;
     }
 
+    /**
+     * get name of player
+     * @return name field
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * if player can't play any card
+     * receives a single card
+     * @param card a new card
+     */
     public void addCard(Card card)
     {
         playerCards.add(card);
     }
 
+    /**
+     * if player plays a card
+     * the card removes from player's cards
+     * @param card played card
+     */
     public void removeCard(Card card)
     {
         playerCards.remove(card);
     }
 
+    /**
+     * calculate score of player
+     */
     public void calculateScores()
     {
         for (Card card: playerCards)
             score += card.getScore();
     }
 
+    /**
+     * check whether the player has card or not
+     * @return
+     */
     public boolean hasCard()
     {
         if(playerCards.size() == 0)
@@ -52,17 +91,32 @@ public class Player {
     }
 
     Random random = new Random();
+
+    /**
+     * choosing a card among player cards in random way
+     * @param cards a list of cards
+     * @return a random chosen card among cards
+     */
     public Card randomCard(ArrayList<Card> cards)
     {
         Card card = cards.get(random.nextInt(cards.size()));
         return card;
     }
 
+    /**
+     * get number of cards of player
+     * @return number of cards of player
+     */
     public int getNumberOfCards() {
         return playerCards.size();
     }
 
     public static final String ANSI_RESET = "\u001B[0m";
+
+    /**
+     * print player all cards or playable cards
+     * @param cards list of cards
+     */
     public void printCards(ArrayList<Card> cards)
     {
        String str = "";
@@ -95,6 +149,12 @@ public class Player {
        System.out.println(str);
     }
 
+    /**
+     * putting a card
+     * @param gm game manager
+     * @return selected card
+     * @throws InterruptedException
+     */
     public Card playCard(GameManager gm) throws InterruptedException {
         System.out.println("cards: ");
         printCards(playerCards);
@@ -113,6 +173,12 @@ public class Player {
         return selectedCard;
     }
 
+    /**
+     * choose a cart to play
+     * @param validCards list of playable cards
+     * @param gm game manager
+     * @return selected card
+     */
     public Card selectCard(ArrayList<Card> validCards, GameManager gm)
     {
         Card selectedCard = null;
@@ -130,6 +196,14 @@ public class Player {
         return selectedCard;
     }
 
+    /**
+     * if player can't play card
+     * picks a card
+     * @param gm game manager
+     * @param selectedCard field of card
+     * @return the selected card
+     * @throws InterruptedException
+     */
     public Card pickCard(GameManager gm, Card selectedCard) throws InterruptedException {
         System.out.println("picking card...");
         Thread.sleep(1000);
@@ -161,6 +235,11 @@ public class Player {
         return selectedCard;
     }
 
+    /**
+     * checking playable cards
+     * @param gm game manager
+     * @return list of playable cards
+     */
     public ArrayList<Card> checkValidCards(GameManager gm)
     {
         ArrayList<Card> valids = new ArrayList<>();
